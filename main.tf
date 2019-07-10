@@ -1,10 +1,10 @@
 resource "aws_iam_instance_profile" "instance_profile" {
-  name = "${var.role_name}"
-  role = "${aws_iam_role.role.name}"
+  name = var.role_name
+  role = aws_iam_role.role.name
 }
 
 resource "aws_iam_policy" "policy" {
-  name = "${var.role_name}"
+  name = var.role_name
 
   policy = <<EOF
 {
@@ -18,10 +18,11 @@ resource "aws_iam_policy" "policy" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_role" "role" {
-  name = "${var.role_name}"
+  name = var.role_name
 
   assume_role_policy = <<EOF
 {
@@ -38,10 +39,11 @@ resource "aws_iam_role" "role" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_role_policy_attachment" "attachment" {
-    role       = "${aws_iam_role.role.name}"
-    policy_arn = "${aws_iam_policy.policy.arn}"
+  role       = aws_iam_role.role.name
+  policy_arn = aws_iam_policy.policy.arn
 }
 
